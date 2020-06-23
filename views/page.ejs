@@ -1,0 +1,31 @@
+<%- include("partials/header") %>
+<%if(!datas["results"]){%>
+    <div class="text-center">
+        <h1>FILE NOT FOUND</h1>
+    </div>
+<%}else{%>
+    <div class="row text-center mx-1" style="display:flex; flex-wrap:wrap;">
+        <% datas["results"].forEach(function(data){ %>
+        <div class="col-md-4 col-lg-2 col-sm-6 mb-2 mt-2">
+            <div class="thumbnail">
+                <a href="/explore/<%= data.media_type %>/<%= data.id %>">
+                    <img class ="card-img-top" 
+                    src="https://image.tmdb.org/t/p/w500/<%=data['poster_path'] %>" alt="<%=data.title%>">
+                </a>
+                <div class="caption">
+                    <a class="nav-link" href="/explore/<%= data.media_type %>/<%= data.id %>">
+                        <h5 class="card-title">
+                            <%if(data.media_type === "tv"){%>
+                                <%=data.original_name%>
+                            <%}else{%>
+                                <%=data.original_title%>
+                                <%}%>
+                        </h5><span>
+                    </a>
+                </div>    
+            </div>   
+        </div>
+        <% }) %>
+    </div>
+<%}%>
+<%- include("partials/footer") %>

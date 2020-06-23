@@ -1,0 +1,104 @@
+<%- include("partials/header") %>
+<div class="mx-4">
+    <div class="row ml-2 mt-2">
+        <div class="col-sm-12 col-md-3">
+            <img id="image" src="https://image.tmdb.org/t/p/w500/<%=datas['poster_path']%>" alt="<%= datas.title %>" >
+        </div>
+        <div class="col-sm-12 col-md-9">
+            <h2 class="text-left mt-4 ml-1">
+                <%if(media_type === "tv"){%>
+                    <%=datas.original_name%>
+                <%}else{%>
+                    <%=datas.original_title%>
+                <%}%>
+                <br>
+                <span> <%if(media_type !== "tv"){%>(<%=datas.release_date%>)<%}else{%>
+                    (<%=datas.first_air_date%>)<%}%>
+                </span></h2>
+            <div class="row mt-4">
+                <div class="col-sm-9">
+                    <div class="container inner mt-3 ml-1">
+                        <h5><strong class="str">Genre:  </strong><% datas.genres.forEach( function (genre){%>
+                            <%= genre.name %>&nbsp;<%})%></h5>
+                        <h5><strong class="str">Rating:  </strong><%=datas.vote_average%></h5>
+                        <%if(media_type !== "tv"){%>
+                            <h5><strong class="str">Released:  </strong><%=datas.release_date%></h5>
+                        <%}%>
+                        <%if(media_type !== "tv"){%>
+                            <h5><strong class="str">Runtime:  </strong><%=datas.runtime%> mins</h5>
+                        <%}else{%>
+                            <h5><strong class="str">Episode Runtime:  </strong><%=datas.episode_run_time%> mins</h5>
+                        <%}%>
+                        <%if(media_type === "tv"){%>
+                            <h5><strong class="str">Number Of Seasons:  </strong><%=datas.number_of_seasons%></h5>
+                        <%}%>
+                    </div>
+                    <div class="container inner mt-3 ml-1">
+                        <h5><strong class="str">Original Language:  </strong><%=datas.original_language%></h5>
+                        <h5><strong class="str">Status:  </strong><%=datas.status%></h5>
+                        <%if(media_type === "tv"){%>
+                            <h5><strong class="str">Number Of Episodes:  </strong><%=datas.number_of_episodes%></h5>
+                        <%}%>
+                        </div>
+                </div>
+                <% if(currentUser){ %>
+                    <% var val = media_type.substring(0,1)+datas.id;%><% var tog = false; %>
+                    <div class="col-sm-3 mt-3">
+                        <% currentUser.watchlist.forEach((data)=>{%>
+                            <%if(data.uid==val && !tog){ %>
+                                <%tog=true%>
+                            <%}%>
+                        <%})%>
+                        <%if(!tog){%>
+                            <form action="/explore/<%=media_type%>/<%= datas.id %>/add" method="POST">
+                                <input type="submit" name="request" class="btn btn-outline-danger mb-5" value="watchlist">
+                            </form>
+                        <%}else{%>
+                            <form action="/explore/<%=media_type%>/<%= datas.id %>/remove" method="POST">
+                                <input type="submit" name="request" class="btn btn-danger mb-5" value="watchlist">
+                            </form>
+                        <%}%>
+                        <% var tog = false; %>
+                        <% currentUser.watched.forEach((data)=>{%>
+                            <%if(data.uid==val && !tog){ %>
+                                <%tog=true%>
+                            <%}%>
+                        <%})%>
+                        <%if(!tog){%>
+                            <form action="/explore/<%=media_type%>/<%= datas.id %>/add" method="POST">
+                                <input type="submit" name="request" class="btn btn-outline-danger mb-5" value="watched">
+                            </form>
+                        <%}else{%>
+                            <form action="/explore/<%=media_type%>/<%= datas.id %>/remove" method="POST">
+                                <input type="submit" name="request" class="btn btn-danger mb-5" value="watched">
+                            </form>
+                        <%}%>
+                        <% var tog = false; %>
+                        <% currentUser.favourite.forEach((data)=>{%>
+                            <%if(data.uid==val && !tog){ %>
+                                <%tog=true%>
+                            <%}%>
+                        <%})%>
+                        <%if(!tog){%>
+                            <form action="/explore/<%=media_type%>/<%= datas.id %>/add" method="POST">
+                                <input type="submit" name="request" class="btn btn-outline-danger" value="favourite">
+                            </form>
+                        <%}else{%>
+                            <form action="/explore/<%=media_type%>/<%= datas.id %>/remove" method="POST">
+                                <input type="submit" name="request" class="btn btn-danger" value="favourite">
+                            </form>
+                        <%}%>
+                    </div>
+                <%}%>
+            </div>
+        </div>
+    </div>
+    <div class="container inner mt-3 mr-2 col-sm-12">
+        <p><h3><strong class="str">PLOT: </strong></h3><%=datas.overview%></p>
+        <nav class="nav">
+            <a href="https://www.imdb.com/title/<%=datas.imdb_id%>/?ref_=nv_sr_srsg_0" target="_blank" class="btn btn-primary">GO TO IMDB</a>
+            <a href="<%= datas.homepage %>" target="_blank" class="btn btn-secondary ml-3">GO TO HOME PAGE</a>
+        </nav>
+    </div> 
+</div>
+<%- include("partials/footer") %>

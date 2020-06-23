@@ -1,0 +1,41 @@
+body , .diva{
+    background-color: #121212;
+}
+h1,h2{
+    color:white;
+    text-align: center;
+}
+#thisnav {
+    min-height: 4rem;
+}
+a{
+    color:#a7a4a4;
+}
+a:hover{
+    color:#64aed1;
+}
+#image{
+    min-height: 80%;
+    width:100%;
+    margin:2rem auto;
+}
+.inner{
+    background-color: #292929;
+    color:#9f9f9f;
+    padding:1rem 1rem;
+}
+.str{
+    color:#fafafa;
+}
+::-webkit-scrollbar{
+    width:13px;
+    height:13px;
+    background:#292929;
+}
+::-webkit-scrollbar-thumb {
+    background: greenyellow; 
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: green; 
+}
