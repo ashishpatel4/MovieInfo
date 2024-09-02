@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Check for description of any movie before you watch it",
   "main": "app.js",
-  "homepage": "https://ashishpatel4.github.io/MovieInfo/"
+  "homepage": "https://ashishpatel4.github.io/MovieInfo/",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
